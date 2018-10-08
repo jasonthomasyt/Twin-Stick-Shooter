@@ -14,7 +14,7 @@
 		/** 
 		 * Overrides the update design pattern function from GameScene.
 		 */
-		override public function update(keyboard:KeyboardInput):GameScene {
+		override public function update():GameScene {
 			
 			// Play game if shouldSwitchToPlay is true
 			if(shouldSwitchToPlay) return new ScenePlay();

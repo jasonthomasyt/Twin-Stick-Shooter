@@ -4,7 +4,9 @@
 	import flash.events.KeyboardEvent;
 	import flash.events.Event;	
 	
-	
+	/**
+	 * Our main game class.
+	 */
 	public class Game extends MovieClip {
 		
 		/** Instantiates keyboard from KeyboardInput class. */
@@ -20,10 +22,13 @@
 		 */
 		public function Game() {
 			
-			keyboard = new KeyboardInput(stage);
+			// Setup keyboard input.
+			KeyboardInput.setup(stage);
 			
+			// Start with Title Scene
 			switchScene(new SceneTitle());
 			
+			// Begin GameLoop
 			addEventListener(Event.ENTER_FRAME, gameLoop);
 			
 		} // ends Game
@@ -32,8 +37,8 @@
 		 * The game loop design pattern.
 		 */
 		private function gameLoop(e:Event):void {
-			
-			if(gameScene) switchScene(gameScene.update(keyboard));
+			Time.update(); // Update Time
+			if(gameScene) switchScene(gameScene.update());
 			
 		} // ends gameLoop
 		

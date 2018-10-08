@@ -1,11 +1,11 @@
-﻿package code  {
+﻿package code {
 	
 	import flash.display.MovieClip;
 	
 	/**
-	 * The class for the Bullet object.
+	 * The class for the Enemy Bullet object. 
 	 */
-	public class Bullet extends MovieClip {
+	public class EnemyBullet extends MovieClip {
 		
 		/** Speed of the bullet. */
 		public const SPEED: Number = 240;
@@ -24,23 +24,24 @@
 		public var angle: Number = 0;
 		
 		/**
-		 * Bullet constructor function.
-		 * @param p The player object of the game.
+		 * Enemy Bullet constructor function.
+		 * @param p The Player object.
+		 * @param e The enemy object of the game.
 		 */
-		public function Bullet(p: Player) {
-			
+		public function EnemyBullet(p: Player, e: BasicTank) {
 			// Set coordinates of bullet to player coordinates. 
-			x = p.x;
-			y = p.y;
+			x = e.x;
+			y = e.y;
 			
-			// Set angle to player rotation. 
-			angle = (p.rotation - 90) * Math.PI / 180;
-
-			// Set velocity according to speed and angle of the bullet.
+			var tx:Number = p.x - e.x;
+			var ty:Number = p.y - e.y;
+				
+			var angle:Number = Math.atan2(ty, tx);
+			angle += (Math.random() * 20 + Math.random() * -20) * Math.PI / 180;
+				
 			velocityX = SPEED * Math.cos(angle);
 			velocityY = SPEED * Math.sin(angle);
-			
-		} // ends Bullet
+		} // ends EnemyBullet
 		
 		/**
 		 * The update design pattern for the bullet.
@@ -55,5 +56,6 @@
 			if (!stage || y < 0 || x < 0 || x > stage.stageWidth || y > stage.stageHeight) isDead = true;
 			
 		} // ends update
-	} // ends class
-} // ends package
+	}
+	
+}

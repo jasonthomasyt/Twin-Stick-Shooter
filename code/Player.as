@@ -7,15 +7,24 @@
 	 */
 	public class Player extends MovieClip {
 		
+		/** Checks if player is dead. */
+		public var isDead:Boolean = false;
+		
+		/** Counts how many times player has been hit. */
+		public var hits:int = 0;
+		
+		/** The hit radius of the player. */
+		public var radius:Number = 51;
+		
 		/**
-		 * Player constructor function.
+		 * The constructor function of the player.
 		 */
 		public function Player() {
-			
+			radius *= scaleX;
 		} // ends Player
 		
 		/** Update design pattern. */
-		public function update(keyboard:KeyboardInput):void {
+		public function update():void {
 			
 			// Change angle based on mouse position and rotate player. 
 			var tx: Number = parent.mouseX - x;
@@ -24,11 +33,13 @@
 			angle *= 180 / Math.PI;
 			rotation = angle + 90;
 			
+			var speed:Number = 200;
+			
 			// Tells player which direction to move based on what key is pressed.
-			if(keyboard.keyLeft) x -= 7;
-			if(keyboard.keyUp) y -= 7;
-			if(keyboard.keyRight) x += 7;
-			if(keyboard.keyDown) y += 7;
+			if(KeyboardInput.keyLeft) x -= speed * Time.dtScaled;
+			if(KeyboardInput.keyUp) y -= speed * Time.dtScaled;
+			if(KeyboardInput.keyRight) x += speed * Time.dtScaled;
+			if(KeyboardInput.keyDown) y += speed * Time.dtScaled;
 		
 		} // ends update
 	} // ends class

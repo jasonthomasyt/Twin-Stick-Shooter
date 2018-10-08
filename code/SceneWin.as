@@ -3,17 +3,24 @@
 	import flash.display.MovieClip;
 	
 	/**
-	 * The class for the lose scene of the game.
+	 * The class for the win scene of the game.
 	 */
-	public class SceneLose extends GameScene {
+	public class SceneWin extends GameScene {
+		
+		/**
+		 * Constructor function for SceneWin
+		 */
+		public function SceneWin() {
+			x = 270;
+			y = 200;
+		} // ends SceneWin
 		
 		/**
 		 * Overrides the update design pattern function for GameScene.
 		 */
 		override public function update():GameScene {
-			
 			// If enter key is pressed, go to title screen.
-			if(KeyboardInput.keyEnter) return new SceneTitle
+			if(KeyboardInput.keyEnter) return new SceneTitle();
 			
 			// Remove all bullets from the screen.
 			for (var i = bullets.length - 1; i >= 0; i--) {

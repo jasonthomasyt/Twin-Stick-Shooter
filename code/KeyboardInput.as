@@ -10,16 +10,17 @@
 	public class KeyboardInput {
 		
 		/** Boolean flag for each key that is pressed. */
-		public var keyLeft:Boolean = false;
-		public var keyUp:Boolean = false;
-		public var keyRight:Boolean = false;
-		public var keyDown:Boolean = false;
-		public var keyEnter:Boolean = false;
+		static public var keyLeft:Boolean = false;
+		static public var keyUp:Boolean = false;
+		static public var keyRight:Boolean = false;
+		static public var keyDown:Boolean = false;
+		static public var keyEnter:Boolean = false;
 
 		/**
 		 * Constructor function for KeyboardInput
+		 * @param stage The main scene of the game.
 		 */
-		public function KeyboardInput(stage:Stage) {
+		static public function setup(stage:Stage) {
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp);
@@ -28,8 +29,10 @@
 		
 		/** 
 		 * Updates the key booleans when a certain key is pressed.
+		 * @param keyCode The keycode of the key that is pressed.
+		 * @param isDown Switches to true if the key has been pressed.
 		 */
-		private function updateKey(keyCode:int, isDown:Boolean):void {
+		static private function updateKey(keyCode:int, isDown:Boolean):void {
 			
 			if(keyCode == 13) keyEnter = isDown;
 			if(keyCode == 65) keyLeft = isDown;
@@ -41,8 +44,9 @@
 		
 		/**
 		 * If key is pressed, set boolean to true.
+		 * @param e The keyboard input event.
 		 */
-		private function handleKeyDown(e:KeyboardEvent):void {
+		static private function handleKeyDown(e:KeyboardEvent):void {
 			
 			updateKey(e.keyCode, true);
 			
@@ -50,8 +54,9 @@
 		
 		/**
 		 * If key is not pressed, set boolean to false.
+		 * @param e The keyboard input event.
 		 */
-		private function handleKeyUp(e:KeyboardEvent):void {
+		static private function handleKeyUp(e:KeyboardEvent):void {
 			
 			updateKey(e.keyCode, false);
 			

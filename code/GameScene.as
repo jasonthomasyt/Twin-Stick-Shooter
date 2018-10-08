@@ -10,14 +10,23 @@
 	 */
 	public class GameScene extends MovieClip {
 		
-		/** This array holds only Bullet objects. */
+		/** This array holds only Bullet objects shot by the player. */
 		var bullets: Array = new Array();
+		
+		/** This array holds only enemy bullet objects shot by enemies. */
+		var enemyBullets: Array = new Array();
+		
+		/** This array holds only enemy tank objects. */
+		var enemyTanks: Array = new Array();
+		
+		/** This array holds only PowerUp objects. */
+		var powerUps: Array = new Array();
 
 		/**
 		 * Each game scene should override this method
 		 * and add specific implementation.
 		 */
-		public function update(keyboard:KeyboardInput):GameScene {
+		public function update():GameScene {
 			return null;
 		} // ends update
 		
