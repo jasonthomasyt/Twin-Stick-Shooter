@@ -10,8 +10,7 @@
 		/** Checks if player is dead. */
 		public var isDead:Boolean = false;
 		
-		/** Counts how many times player has been hit. */
-		public var hits:int = 0;
+		public var angle:Number = 0;
 		
 		/** The hit radius of the player. */
 		public var radius:Number = 51;
@@ -29,7 +28,7 @@
 			// Change angle based on mouse position and rotate player. 
 			var tx: Number = parent.mouseX - x;
 			var ty: Number = parent.mouseY - y;
-			var angle: Number = Math.atan2(ty, tx);
+			angle = Math.atan2(ty, tx);
 			angle *= 180 / Math.PI;
 			rotation = angle + 90;
 			

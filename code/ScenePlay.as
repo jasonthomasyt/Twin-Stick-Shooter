@@ -37,6 +37,10 @@
 		
 		/** Counts current score for the game. */
 		var score: int = 0;
+		
+		var maxHealth: Number = 10;
+		
+		var currentHealth: Number = maxHealth;
 
 		/** 
 		 * ScenePlay constructor function.
@@ -73,6 +77,8 @@
 			updatePowerUps();
 
 			collisionDetection();
+			
+			hud.update(this);
 
 			// Game Over if player gets hit too many times
 			if (player.isDead) return new SceneLose();
@@ -195,7 +201,7 @@
 			delayPowerUps--;
 			if (delayPowerUps <= 0 && powerUpSpawned == false) {
 				// This selects a random number between 1 and 4 to help determine which powerup gets spawned next.
-				powerSelector = (Math.random() * 3 + 1)
+				powerSelector = 1;
 				if (powerSelector >= 1 && powerSelector < 2) {
 					var d: DoubleShotPowerUp = new DoubleShotPowerUp();
 					addChild(d);
@@ -292,12 +298,14 @@
 		 */
 		private function doubleShot(): void {
 			var b: Bullet = new Bullet(player);
-			b.x -= 15;
+			b.x -= 20;
+			b.x = b.x * Math.cos(b.angle);
 			addChild(b);
 			bullets.push(b);
 
 			var b2: Bullet = new Bullet(player);
-			b2.x += 15;
+			b2.x += 20;
+			b2.x = b2.x * Math.cos(b2.angle);
 			addChild(b2);
 			bullets.push(b2);
 		} // ends doubleShot
@@ -388,11 +396,11 @@
 				
 				/** If enemy bullet and player hit, increase player hit counter. */
 				if (dis3 < player.radius + enemyBullets[m].radius) {
-					player.hits++;
+					currentHealth--;
 					enemyBullets[m].isDead = true;
 				}
 				
-				if (player.hits == 3){
+				if (currentHealth <= 0){
 					player.isDead = true;
 				}
 			} // ends for loop
