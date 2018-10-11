@@ -29,7 +29,7 @@
 		 */
 		public function BasicTank() {
 			x = Math.random() * 550;
-			y = - 50;
+			y = -50;
 			speed = Math.random() * 75 + 50; // 2 to 5?
 			radius *= scaleX;
 		} // ends BasicTank
@@ -62,9 +62,6 @@
 			x += velocityX * Time.dtScaled;
 			y += velocityY * Time.dtScaled;
 			
-			if(y > 400){
-				isDead = true;
-			}
 		} // ends update
 	} // ends class
 } // ends package

@@ -37,7 +37,6 @@
 		 * The game loop design pattern.
 		 */
 		private function gameLoop(e:Event):void {
-			Time.update(); // Update Time
 			if(gameScene) switchScene(gameScene.update());
 			
 		} // ends gameLoop

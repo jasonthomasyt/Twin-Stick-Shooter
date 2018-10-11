@@ -16,6 +16,8 @@
 		 */
 		override public function update():GameScene {
 			
+			Time.update(); // Update Time
+			
 			// Play game if shouldSwitchToPlay is true
 			if(shouldSwitchToPlay) return new ScenePlay();
 			

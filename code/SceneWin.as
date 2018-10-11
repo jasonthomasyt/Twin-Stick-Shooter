@@ -19,6 +19,8 @@
 		 * Overrides the update design pattern function for GameScene.
 		 */
 		override public function update():GameScene {
+			Time.update(); // Update Time
+			
 			// If enter key is pressed, go to title screen.
 			if(KeyboardInput.keyEnter) return new SceneTitle();
 			

@@ -13,8 +13,20 @@
 		public function update(game:ScenePlay): void {
 			parent.setChildIndex(this, parent.numChildren - 1);
 			
-			scoreboard.text = "Score: " + game.score + "/10";
-			healthbar.scaleX = game.currentHealth / game.maxHealth;
+			if (game.waveOne == true){
+				waveCounter.text = "Wave: 1/3";
+			}
+			else if (game.waveTwo == true){
+				waveCounter.text = "Wave: 2/3";
+			}
+			else if (game.waveThree == true){
+				waveCounter.text = "Wave: 3/3";
+			}
+			else if (game.bossWave == true){
+				waveCounter.text = "BOSS";
+			}
+			
+			healthbar.barColor.scaleX = game.playerCurrentHealth / game.playerMaxHealth;
 		}
 	}
 	
