@@ -47,6 +47,8 @@
 		/** Instantiates the Player object. */
 		public var player: Player;
 
+		public var bossHealth: BossHealth = new BossHealth();
+
 		/** Helps determine which powerup will spawn. */
 		var powerSelector: int = 0;
 
@@ -61,6 +63,8 @@
 
 		var enemyCounter: int = 0;
 
+		private var enemySelector = 0;
+
 		/** Max Health of the player. */
 		var playerMaxHealth: Number = 10;
 
@@ -68,7 +72,7 @@
 		var playerCurrentHealth: Number = playerMaxHealth;
 
 		/** Max Health of the boss. */
-		var bossMaxHealth: Number = 20;
+		var bossMaxHealth: Number = 50;
 
 		/** Current Health of the boss. */
 		var bossCurrentHealth: Number = bossMaxHealth;
@@ -117,7 +121,7 @@
 			if (player.isDead) return new SceneLose();
 
 			// Player wins if they defeat the boss!
-			//if (bossWaveEnd = true) return new SceneWin();
+			if (bossWaveEnd) return new SceneWin();
 
 			return null;
 		} // ends update
@@ -212,7 +216,7 @@
 		 * Spawns the first wave of enemies.
 		 */
 		private function spawnWaveOne(): void {
-			if (enemyCounter <= 10) {
+			if (enemyCounter < 10) {
 				if (delaySpawn > 0) {
 					delaySpawn -= Time.dtScaled;
 				} else {
@@ -235,13 +239,20 @@
 		 * Spawns the second wave of enemies.
 		 */
 		private function spawnWaveTwo(): void {
-			if (enemyCounter <= 15) {
+			if (enemyCounter < 15) {
+				enemySelector = Math.random() * 2 + 1;
 				if (delaySpawn > 0) {
 					delaySpawn -= Time.dtScaled;
 				} else {
-					var b: BasicTank = new BasicTank();
-					addChild(b);
-					enemyTanks.push(b);
+					if (enemySelector >= 1 && enemySelector < 2) {
+						var b: BasicTank = new BasicTank();
+						addChild(b);
+						enemyTanks.push(b);
+					} else if (enemySelector >= 2 && enemySelector < 3) {
+						var d: DoubleTank = new DoubleTank();
+						addChild(d);
+						enemyTanks.push(d);
+					}
 					enemyCounter++;
 					delaySpawn = (int)(Math.random() * 50 + 40);
 				}
@@ -258,15 +269,22 @@
 		 * Spawns the third wave of enemies.
 		 */
 		private function spawnWaveThree(): void {
-			if (enemyCounter <= 20) {
+			if (enemyCounter < 20) {
+				enemySelector = Math.random() * 2 + 1;
 				if (delaySpawn > 0) {
 					delaySpawn -= Time.dtScaled;
 				} else {
-					var b: BasicTank = new BasicTank();
-					addChild(b);
-					enemyTanks.push(b);
+					if (enemySelector >= 1 && enemySelector < 2) {
+						var d: DoubleTank = new DoubleTank();
+						addChild(d);
+						enemyTanks.push(d);
+					} else if (enemySelector >= 2 && enemySelector < 3) {
+						var t: TripleTank = new TripleTank();
+						addChild(t);
+						enemyTanks.push(t);
+					}
 					enemyCounter++;
-					delaySpawn = (int)(Math.random() * 30 + 20);
+					delaySpawn = (int)(Math.random() * 50 + 40);
 				}
 			}
 
@@ -281,16 +299,12 @@
 		 * Spawns the final boss.
 		 */
 		private function spawnBoss(): void {
-			//while (enemyCounter < 10) {
-			//delaySpawn -= Time.dtScaled;
-			//if (delaySpawn <= 0) {
-			//var b: BasicTank = new BasicTank();
-			//addChild(b);
-			//enemyTanks.push(b);
-			//enemyCounter++;
-			//delaySpawn = (int)(Math.random() * 2 + .5);
-			//}
-			//}
+			if (enemyCounter < 1){
+				var b: Boss = new Boss();
+				addChild(b);
+				enemyTanks.push(b);
+			}
+			enemyCounter++;
 		}
 
 		/** 
@@ -307,10 +321,46 @@
 		/**
 		 * Spawns a bullet from the enemy.
 		 */
-		public function spawnEnemyBullet(basicTank: BasicTank): void {
-			var e: EnemyBullet = new EnemyBullet(player, basicTank);
-			addChild(e);
-			enemyBullets.push(e);
+		public function spawnEnemyBullet(basicTank: BasicTank = null, doubleTank: DoubleTank = null, tripleTank: TripleTank = null, boss: Boss = null): void {
+			if (basicTank) {
+				var e: EnemyBullet = new EnemyBullet(player, basicTank);
+				addChild(e);
+				enemyBullets.push(e);
+			} else if (doubleTank) {
+				var f: EnemyBullet = new EnemyBullet(player, null, doubleTank);
+				f.x -= 15;
+				addChild(f);
+				enemyBullets.push(f);
+
+				var f2: EnemyBullet = new EnemyBullet(player, null, doubleTank);
+				f2.x += 15;
+				addChild(f2);
+				enemyBullets.push(f2);
+			} else if (tripleTank) {
+				var g: EnemyBullet = new EnemyBullet(player, null, null, tripleTank);
+				addChild(g);
+				enemyBullets.push(g);
+
+				var g2: EnemyBullet = new EnemyBullet(player, null, null, tripleTank);
+				addChild(g2);
+				enemyBullets.push(g2);
+				g2.angle = (tripleTank.rotation - 135) * Math.PI / 180;
+				g2.velocityX = g2.SPEED * Math.cos(g2.angle);
+				g2.velocityY = g2.SPEED * Math.sin(g2.angle);
+
+				var g3: EnemyBullet = new EnemyBullet(player, null, null, tripleTank);
+				addChild(g3);
+				enemyBullets.push(g3);
+				g3.angle = (tripleTank.rotation - 45) * Math.PI / 180;
+				g3.velocityX = g3.SPEED * Math.cos(g3.angle);
+				g3.velocityY = g3.SPEED * Math.sin(g3.angle);
+			} else if (boss) {
+				var h: EnemyBullet = new EnemyBullet(player, null, null, null, boss);
+				h.scaleX *= 5;
+				h.scaleY *= h.scaleX;
+				addChild(h);
+				enemyBullets.push(h);
+			}
 		} // ends spawnEnemyBullet
 
 		/**
@@ -482,9 +532,15 @@
 		} // ends repeatedShot
 
 		/**
-		 * Detects collision for snowflakes, bullets, and powerups.
+		 * Detects collision for enemy tanks, bullets, player, and powerups.
 		 */
 		private function collisionDetection(): void {
+			EnemyCollision();
+			PowerUpCollision();
+			PlayerCollision();
+		} // ends collisionDetection
+
+		private function EnemyCollision(): void {
 			for (var i: int = 0; i < enemyTanks.length; i++) {
 				for (var j: int = 0; j < bullets.length; j++) {
 
@@ -493,12 +549,30 @@
 					var dis: Number = Math.sqrt(dx * dx + dy * dy);
 					if (dis < enemyTanks[i].radius + bullets[j].radius) {
 						// collision!
-						enemyTanks[i].isDead = true;
-						bullets[j].isDead = true;
+						if (enemyTanks[i].selector == 1) {
+							enemyTanks[i].isDead = true;
+							bullets[j].isDead = true;
+						} else if (enemyTanks[i].selector == 2) {
+							enemyTanks[i].hitCounter++;
+							bullets[j].isDead = true;
+						} else if (enemyTanks[i].selector == 3) {
+							enemyTanks[i].hitCounter++;
+							bullets[j].isDead = true;
+						} else if (enemyTanks[i].selector == 4) {
+							bossCurrentHealth--;
+							bullets[j].isDead = true;
+
+							if (bossCurrentHealth <= 0) {
+								enemyTanks[i].isDead = true;
+								bossWaveEnd = true;
+							}
+						}
 					} // ends if statement
 				} // ends second for loop			
 			} // ends first for loop
+		} // ends EnemyCollision
 
+		private function PowerUpCollision(): void {
 			for (var k: int = 0; k < bullets.length; k++) {
 				for (var l: int = 0; l < powerUps.length; l++) {
 					var dx2: Number = powerUps[l].x - bullets[k].x;
@@ -521,7 +595,9 @@
 					} // ends if statement
 				} // ends for loop
 			} // ends for loop
+		} // ends PowerUpCollision
 
+		private function PlayerCollision(): void {
 			for (var m: int = 0; m < enemyBullets.length; m++) {
 				var dx3: Number = player.x - enemyBullets[m].x;
 				var dy3: Number = player.y - enemyBullets[m].y;
@@ -529,7 +605,12 @@
 
 				/** If enemy bullet and player hit, increase player hit counter. */
 				if (dis3 < player.radius + enemyBullets[m].radius) {
-					playerCurrentHealth--;
+					if (bossWave) {
+						playerCurrentHealth -= 2;
+					}
+					else {
+						playerCurrentHealth--;
+					}
 					enemyBullets[m].isDead = true;
 				}
 
@@ -537,6 +618,6 @@
 					player.isDead = true;
 				}
 			} // ends for loop
-		} // ends collisionDetection
+		} // ends PlayerCollision
 	} // ends class
 } // ends package

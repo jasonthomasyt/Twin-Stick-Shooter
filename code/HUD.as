@@ -23,10 +23,18 @@
 				waveCounter.text = "Wave: 3/3";
 			}
 			else if (game.bossWave == true){
-				waveCounter.text = "BOSS";
+				waveCounter.text = "BOSS HEALTH";
+				game.addChild(game.bossHealth);
+				game.bossHealth.x = 835;
+				game.bossHealth.y = 570;
+				
+				waveCounter.x = 590;
+				waveCounter.y = 465;
 			}
 			
 			healthbar.barColor.scaleX = game.playerCurrentHealth / game.playerMaxHealth;
+			
+			game.bossHealth.bossBarColor.scaleX = game.bossCurrentHealth / game.bossMaxHealth;
 		}
 	}
 	

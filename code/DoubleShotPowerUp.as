@@ -20,7 +20,7 @@
 		/** Double Shot PowerUp constructor function. */
 		public function DoubleShotPowerUp() {
 			/** Set coordinates, speed, and radius. */
-			x = Math.random() * 550;
+			x = Math.random() * 1000;
 			y = Math.random() * 350;
 			radius *= scaleX;
 		} // ends DoubleShotPowerUp
