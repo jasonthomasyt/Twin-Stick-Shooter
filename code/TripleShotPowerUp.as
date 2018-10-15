@@ -1,8 +1,8 @@
 ﻿package code {
-	
+
 	import flash.display.MovieClip;
-	
-	
+
+
 	/**
 	 * This is the class for the Triple Shot PowerUp object.
 	 */
@@ -19,12 +19,12 @@
 
 		/** Triple Shot PowerUp constructor function. */
 		public function TripleShotPowerUp() {
-			/** Set coordinates, speed, and radius. */
+			// Set coordinates and radius. 
 			x = Math.random() * 550;
 			y = Math.random() * 350;
 			radius *= scaleX;
 		} // ends TripleShotPowerUp
-		
+
 	} // ends class
-	
+
 } // ends package

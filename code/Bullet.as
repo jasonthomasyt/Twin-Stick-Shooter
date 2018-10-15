@@ -1,12 +1,12 @@
-﻿package code  {
-	
+﻿package code {
+
 	import flash.display.MovieClip;
-	
+
 	/**
 	 * The class for the Bullet object.
 	 */
 	public class Bullet extends MovieClip {
-		
+
 		/** Speed of the bullet. */
 		public const SPEED: Number = 240;
 
@@ -22,38 +22,39 @@
 
 		/** Angle of the bullet. */
 		public var angle: Number = 0;
-		
+
 		/**
 		 * Bullet constructor function.
 		 * @param p The player object of the game.
 		 */
 		public function Bullet(p: Player) {
-			
+
 			// Set coordinates of bullet to player coordinates. 
 			x = p.x;
 			y = p.y;
-			
+
 			// Set angle to player rotation. 
 			angle = (p.rotation - 90) * Math.PI / 180;
 
 			// Set velocity according to speed and angle of the bullet.
 			velocityX = SPEED * Math.cos(angle);
 			velocityY = SPEED * Math.sin(angle);
-			
+
 		} // ends Bullet
-		
+
 		/**
 		 * The update design pattern for the bullet.
+		 * @return void This method should not return anything.
 		 */
 		public function update(): void {
-			
+
 			// Moves bullet according to velocity.
 			x += velocityX * Time.dtScaled;
 			y += velocityY * Time.dtScaled;
 
 			// If it moves off the stage, mark it as dead.
 			if (!stage || y < 0 || x < 0 || x > stage.stageWidth || y > stage.stageHeight) isDead = true;
-			
+
 		} // ends update
 	} // ends class
 } // ends package

@@ -2,7 +2,10 @@
 
 	import flash.display.MovieClip;
 
-
+	/**
+	 * The constructor function for the BasicTank object.
+	 * This enemy only takes one hit to kill.
+	 */
 	public class BasicTank extends MovieClip {
 
 		/** Speed of tank. */
@@ -18,13 +21,15 @@
 		public var isDead: Boolean = false;
 
 		/** Hit radius of tank. */
-		public var radius: Number = 51;
+		public var radius: Number = 30;
 
 		/** The amount of time (in seconds) to wait before spawning the next bullet. */
 		public var spawnDelay: Number = 0;
 
+		/** Allows our gameloop to determine which enemy is which. */
 		public var selector: int;
-		
+
+		/** Determines how many hits an enemy is able to take before dying. */
 		public var hitCounter: int = 0;
 
 		/**
@@ -42,6 +47,7 @@
 		/**
 		 * The update design pattern for the tank.
 		 * @param scenePlay The play scene of the game.
+		 * @return void This method should not return anything.
 		 */
 		public function update(scenePlay: ScenePlay): void {
 

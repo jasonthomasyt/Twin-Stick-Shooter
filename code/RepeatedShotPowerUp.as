@@ -1,8 +1,7 @@
 ﻿package code {
-	
+
 	import flash.display.MovieClip;
-	
-	
+
 	/**
 	 * This is the class for the Repeated Shot PowerUp object.
 	 */
@@ -19,12 +18,10 @@
 
 		/** Repeated Shot PowerUp constructor function. */
 		public function RepeatedShotPowerUp() {
-			/** Set coordinates, speed, and radius. */
+			/** Set coordinates and radius. */
 			x = Math.random() * 550;
 			y = Math.random() * 350;
 			radius *= scaleX;
 		} // ends RepeatedShotPowerUp
-
 	} // ends class
-	
 } // ends package

@@ -26,34 +26,35 @@
 		/**
 		 * Enemy Bullet constructor function.
 		 * @param p The Player object.
-		 * @param e The enemy object of the game.
+		 * @param e The BasicTank object of the game.
+		 * @param f The DoubleTank object of the game.
+		 * @param g The TripleTank object of the game.
+		 * @param h The Boss object of the game.
 		 */
 		public function EnemyBullet(p: Player, e: BasicTank = null, f: DoubleTank = null, g: TripleTank = null, h: Boss = null) {
-			// Set coordinates of bullet to player coordinates. 
+			// Set coordinates, angle, and velocity of bullet to player coordinates (depending on which enemy is firing). 
 			if (e) {
 				x = e.x;
 				y = e.y;
 
 				var tx: Number = p.x - e.x;
 				var ty: Number = p.y - e.y;
-			}
-			else if (f) {
+			} else if (f) {
 				x = f.x;
 				y = f.y;
 
 				var tx: Number = p.x - f.x;
 				var ty: Number = p.y - f.y;
-			}
-			else if (g) {
+			} else if (g) {
 				x = g.x;
 				y = g.y;
-				
+
 				var tx: Number = p.x - g.x;
 				var ty: Number = p.y - g.y;
 			} else if (h) {
 				x = h.x;
 				y = h.y;
-				
+
 				var tx: Number = p.x - h.x;
 				var ty: Number = p.y - h.y;
 			}
